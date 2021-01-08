@@ -249,7 +249,7 @@
             this.electrodeOffsetMeasurementToolStripMenuItem});
             this.startToolStripMenuItem.Enabled = false;
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Visible = false;
             this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
@@ -279,7 +279,7 @@
             // 
             this.startToolStripMenuItem2.Enabled = false;
             this.startToolStripMenuItem2.Name = "startToolStripMenuItem2";
-            this.startToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.startToolStripMenuItem2.Size = new System.Drawing.Size(139, 22);
             this.startToolStripMenuItem2.Text = "Start";
             this.startToolStripMenuItem2.Visible = false;
             // 
@@ -287,7 +287,7 @@
             // 
             this.stopToolStripMenuItem.Enabled = false;
             this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.stopToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.stopToolStripMenuItem.Text = "Stop";
             this.stopToolStripMenuItem.Visible = false;
             this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
@@ -298,7 +298,7 @@
             this.startToolStripMenuItem3,
             this.stopToolStripMenuItem2});
             this.climateToolStripMenuItem.Name = "climateToolStripMenuItem";
-            this.climateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.climateToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.climateToolStripMenuItem.Text = "Climate";
             // 
             // startToolStripMenuItem3
@@ -318,21 +318,21 @@
             // pulsedToolStripMenuItem
             // 
             this.pulsedToolStripMenuItem.Name = "pulsedToolStripMenuItem";
-            this.pulsedToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.pulsedToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.pulsedToolStripMenuItem.Text = "Pulsed";
             this.pulsedToolStripMenuItem.Click += new System.EventHandler(this.pulsedToolStripMenuItem_Click);
             // 
             // newPulsedToolStripMenuItem
             // 
             this.newPulsedToolStripMenuItem.Name = "newPulsedToolStripMenuItem";
-            this.newPulsedToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
+            this.newPulsedToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.newPulsedToolStripMenuItem.Text = "New Pulsed";
             this.newPulsedToolStripMenuItem.Click += new System.EventHandler(this.newPulsedToolStripMenuItem_Click);
             // 
             // newContinuousToolStripMenuItem
             // 
             this.newContinuousToolStripMenuItem.Name = "newContinuousToolStripMenuItem";
-            this.newContinuousToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newContinuousToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.newContinuousToolStripMenuItem.Text = "Continuous";
             this.newContinuousToolStripMenuItem.Click += new System.EventHandler(this.newContinuousToolStripMenuItem_Click);
             // 
@@ -1054,7 +1054,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AtMoS 4";
+            this.Text = "AtMoS 4.1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.menuStrip1.ResumeLayout(false);
