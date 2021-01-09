@@ -142,7 +142,6 @@ namespace AtMoS3
             {
                 //  Once the datafile has been created we make a number of menu items visible.  This prevents a user from
                 //  trying to start the program when the datafile has not been created.
-                calibrationToolStripMenuItem.Visible = true;
                 aquisitionToolStripMenuItem.Visible = true;
 
             }
