@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="Atmos4.1.exe" version="4.1.0.2" publicKeyToken="6219032138faa21e" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="Atmos4.1" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="Atmos4.1.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Atmos4.1.exe" size="59360">
+      <assemblyIdentity name="Atmos4.1" version="0.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>7aQktwHIFcrzXVQuQDx2e5BBJopw/5xkzR4CaJCSbFM=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="Atmos4.1.exe.config" size="1107">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>UrythYwnxBKhveQyUamPeAE9ObjpTmG1gYLdAk1vooo=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=PM75-SURFACEBOO\steve" issuerKeyHash="b8dade99c9e2d4d946df4882ff298f989e28fd0a" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>yhnTnRc73K1b/bCg/VMBzVgiJAeiWkPTplY8tL1ZEwI=</DigestValue></Reference></SignedInfo><SignatureValue>pm5XPIpyNOzd69HzeZsCWhMrOMCx/K1mQCYXEbJE/5T/8HQGxMeCBUWEJoOTgWGMBkydqhLDQA+koyxY14koEMx266sol7+l5p0bW2MdFWxJ31N0FFfQ9YfDKJ4OgpvThgMie4kDmuYtnOS//WPZPSg8ySAs3TPHcrmbPQUYGm0=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>wpXaIQTnrHs2NMm9epnr4qDLd/ThboEe5yo5axtfkXmHGgQTc/BWvTLpV7lbYJuTZTszgkExyeiifY+aNTATPbcQEfR8MhOXyhxTX2j4kSM7nJh8zdkix9ua89FvPyGK6zdmzvyyVjs90bKXw8VJbPpYHwaHgWKbSz+ky331O3E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="021359bdb43c56a6d3435aa207242258cd0153fda0b0fd5baddc3b179dd319ca" Description="" Url=""><as:assemblyIdentity name="Atmos4.1.exe" version="4.1.0.2" publicKeyToken="6219032138faa21e" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=PM75-SURFACEBOO\steve</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>okyKxUmh2oEYeTH1HPhdSkS6OJsTG/TwA8Y2eDbv4HY=</DigestValue></Reference></SignedInfo><SignatureValue>CbAQsW/5HdxXzmLsxpj6M2Eep6Vif7p4+/9iTdAn6oH8Bjj/n+gHRTpPPEsNJEmZ+Q1eMNh1z6oPd/4QFe9Eo2aoItT+4GTMB/luOQbLlH1FxQd1uxCtiSJc8k1nI0AaH45jcLMIElNxGt72HrSa996VXUVHhM25GriKEAcOoy0=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>wpXaIQTnrHs2NMm9epnr4qDLd/ThboEe5yo5axtfkXmHGgQTc/BWvTLpV7lbYJuTZTszgkExyeiifY+aNTATPbcQEfR8MhOXyhxTX2j4kSM7nJh8zdkix9ua89FvPyGK6zdmzvyyVjs90bKXw8VJbPpYHwaHgWKbSz+ky331O3E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB7TCCAVagAwIBAgIQZFcuOhuKR61MjsMgt1sxlTANBgkqhkiG9w0BAQsFADA1MTMwMQYDVQQDHioAUABNADcANQAtAFMAVQBSAEYAQQBDAEUAQgBPAE8AXABzAHQAZQB2AGUwHhcNMjAwNTMxMDA1ODU5WhcNMjEwNTMxMDY1ODU5WjA1MTMwMQYDVQQDHioAUABNADcANQAtAFMAVQBSAEYAQQBDAEUAQgBPAE8AXABzAHQAZQB2AGUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMKV2iEE56x7NjTJvXqZ6+Kgy3f04W6BHucqOWsbX5F5hxoEE3PwVr0y6Ve5W2Cbk2U7M4JBMcnoon2PmjUwEz23EBH0fDITl8ocU19o+JEjO5yYfM3ZIsfbmvPRbz8hius3Zs78slY7PdGyl8PFSWz6WB8Gh4Fim0s/pMt99TtxAgMBAAEwDQYJKoZIhvcNAQELBQADgYEAXL62bb0/SiJ46PrFq76iQ1kycxx2uLyMCjEMJ3bmWOJy6YBBJOolGRSy1r25GnXER/x4gnMDEUmGw3BjDnGqd8nmKqzF/fnxQ83C9hUibwdwbL3o1B9wt3Hdg+L4LQXX94H4zVlzdp6AZIUa7WYC0GDHmFdhHEIIvPi7eBlq5uM=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>

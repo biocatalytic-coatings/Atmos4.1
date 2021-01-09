@@ -30,7 +30,7 @@ namespace AtMoS3
 
         private void About_Load(object sender, EventArgs e)
         {
-           
+            lblVersion.Text = Application.ProductVersion;
         }
     }
 }

@@ -58,14 +58,11 @@ namespace AtMoS3
             if (version == "Southern Cross University")
             {
                 this.Text = "AtMoS - SCU";
-                startToolStripMenuItem.Visible = false;
-                pumpToolStripMenuItem.Visible = false;
                 tabControl1.TabPages.Remove(Sample);
             }
             else
             {
                 this.Text = "AtMoS - Illawarra Coatings";
-                startToolStripMenuItem2.Visible = false;
                 toolStripStatusLabel1.Text = "AtMoS - Licensed to Illawarra Coatings.";
             }
 
@@ -86,7 +83,7 @@ namespace AtMoS3
 
         private void closingEvent(object sender, FormClosingEventArgs e)
         {
-            //stopPump();
+
             System.Windows.Forms.Application.Exit();
             Environment.Exit(0);
             this.Close();
@@ -147,7 +144,7 @@ namespace AtMoS3
                 //  trying to start the program when the datafile has not been created.
                 calibrationToolStripMenuItem.Visible = true;
                 aquisitionToolStripMenuItem.Visible = true;
-                pumpToolStripMenuItem.Visible = true;
+
             }
         }
 
@@ -195,51 +192,6 @@ namespace AtMoS3
         }
 
 
-
-
-        private void startToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            startPump();
-        }
-
-        private void stopPump()
-        {
-            //  The method calls a python script whose function is to deenergise the relay connected to the
-            //  usb pump thereby switching it off.
-            
-            /*
-            string python = @"/usr/bin/python";
-            string pythonStartPump = @"/home/pi/Programs/Python/pumpSwitching/switchOFF.py";
-            Process _myProcessOff = new Process();
-            ProcessStartInfo _myProcessStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = false,
-                RedirectStandardOutput = false,
-                CreateNoWindow = false,
-                FileName = python,
-                Arguments = pythonStartPump
-            };
-
-            _myProcessOff.StartInfo = _myProcessStartInfo;
-            _myProcessOff.Start();
-
-            */
-        }
-
-        private void stopToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            /*
-            stopPump();
-            */
-        }
-
-        private void autoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            bwGetGasPulsed.RunWorkerAsync();
-        }
-
-
-
         private void setlblStatusTextSafely(string text)
         {
             //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".  This error occurs when we try to 
@@ -258,106 +210,37 @@ namespace AtMoS3
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            stopPump();
+
             System.Windows.Forms.Application.Exit();
             Environment.Exit(0);
             this.Close();
-        }
-
-
-
-        private void tmrWrite2File_Tick(object sender, EventArgs e)
-        {
-            write2DataFile();
-        }
-
-        private void dataCollectionToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            tmrWrite2File.Start();
         }
 
         private void bwGetClimate_DoWork(object sender, DoWorkEventArgs e)
         {
             /*  bwGetClimate is used to update the climate information on the form.  This is now handled by the bwgetClimate_DoWork
              *  function using the runPythonScript() function rather than the previous dedicated getClimate(). 
-             *  This thread is started at form_load and doesn't have a stop function.
-             *  */
+             *  This thread is started when data aquisition is commenced.
+             */  
 
             while (true)
             {
-                //getClimate();
-                setlblStatusTextSafely("Running continuous chamber atmospheric analysis.");
+                int delayTime = Convert.ToInt32(txtClimateUpdatedInterval.Text) * 1000;
+                DateTime finishTime = (DateTime.Now).AddMilliseconds(delayTime);
+
                 string myProgram = "Adafruit_BME280_Library/examples/mybme280";
                 string programType = "climate";
                 runPythonScript(myProgram, 4, 0, "1", programType);
-                Thread.Sleep(1000);
+
+                //This is the loop described above that creates the delay similiar to Thread.Sleep().
+                while (DateTime.Now < finishTime)
+                {
+                    //  Create a loop
+                }
             }
                 
         }
 
-        private void getClimate()
-        {
-            //  This getClimate() method calls a python script that reads temperature, humidity and atmospheric pressure
-            //  information from a Bosch BME280 sensor.  The python script average 5 readings with a 0.1 seconds delay
-            //  between each reading.  This delay prevents issues with a reading not being completed before the 
-            //  commencement of the next measurement.  The python script then returns the new measurement. 
-
-            //  Here we use the AddMilliseconds function to help create the sleep function between gas analyses.
-            //  Doing it this way results in a more accurate delay than Thread.Sleep().  We determine the current
-            //  time and then add the appropriate delay the the finishTime variable.  Further down this method,
-            //  there is a while loop that checks the current time against the set finishTime and loops until
-            //  finishTime and therefore the delay is completed.  The only issue is that the program must complete
-            //  one cycle after the delay is set for the new delay to be active...this is however the same when using
-            //  Thread.Sleep().  The only way to change this is to stop the analysis and restart.  This delay triggers
-            //  the getClimate() method every second.  This value can be changed in the Parameters > Sampling Rates
-            //  tab control if this tab is active for the organisation.
-
-            /*
-             *  This section of code has now been replaced by runPythonScript().
-             *  
-            int delayTime = Convert.ToInt32(txtClimateUpdatedInterval.Text) * 1000;
-            DateTime finishTime = (DateTime.Now).AddMilliseconds(delayTime);
-
-            string python = @"/usr/bin/python";
-            string climate = @"/home/pi/Adafruit_BME280_Library/examples/bme280.py";
-
-            try
-            {
-                Process _myProcess = new Process();
-                ProcessStartInfo _myProcessStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = false,
-                    FileName = python,
-                    Arguments = climate
-                };
-
-                _myProcess.StartInfo = _myProcessStartInfo;
-                _myProcess.Start();
-
-                StreamReader _myStreamReader = _myProcess.StandardOutput;
-                string _temp = _myStreamReader.ReadLine();
-                string _press = _myStreamReader.ReadLine();
-                string _humid = _myStreamReader.ReadLine();
-
-                //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-                //  call a Windows Forms control from a thread that didn't create that control.
-                lblTemperature.Invoke(new MethodInvoker(delegate { lblTemperature.Text = _temp; }));
-                lblPressure.Invoke(new MethodInvoker(delegate { lblPressure.Text = _press; }));
-                lblHumidity.Invoke(new MethodInvoker(delegate { lblHumidity.Text = _humid; }));
-            }
-            catch
-            { 
-            }
-                                    
-            //This is the loop described above that creates the delay similiar to Thread.Sleep().
-            while (DateTime.Now < finishTime)
-            {
-                //  Create a loop
-            }
-            */
-        }
 
         private void bwGetSystemTime_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -379,225 +262,10 @@ namespace AtMoS3
                 }
             }            
         }
+                  
 
-        private void bwGetGasPulsed_DoWork(object sender, DoWorkEventArgs e)
-        {
-            //pumpAuto();
-            while (true)
-            {
-                //  This backgroundworker is used to do pulse measurement of the chamber atmosphere.  We start by opening
-                //  the solenoid valve attached to the sensor system exit line and start the pump.  We purge the  
-                //  sensor system for a timeperiod determined by the value of txtPurgeTime.  At the end of that 
-                //  time, we call the gas.py script to do the actual analysis.  The pump continues for a short time 
-                //  after the end of the analysis cycle.  We then stop the pump, close the solenoid and put the 
-                //  system to sleep.
-                //  
-                //  Here we use the AddMilliseconds function to help create the sleep function between gas analyses.
-                //  Doing it this way results in a more accurate delay than Thread.Sleep().  We determine the current
-                //  time and then add the appropriate delay the the finishTime variable.  Further down this method,
-                //  there is a while loop that checks the current time against the set finishTime and loops until
-                //  finishTime and therefore the delay is completed.  The only issue is that the program must complete
-                //  one cycle after the delay is set for the new delay to be active...this is however the same whrn using
-                //  Thread.Sleep().  The only way to change this is to stop the analysis and restart.
-
-                DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
-                DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
-
-                setlblStatusTextSafely("Gas hood solenoid energised.");
-              
-                // Energise and open the usb pump solenoid valve.
-                string openSolenoid = "Programs/pythonScripts/relayState";
-                string relay = "relay";
-                runPythonScript(openSolenoid, 26, 0, "1", relay);
-
-                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(1000);
-                setlblStatusTextSafely("Sensor purge cycle started.");
-                while (DateTime.Now < pumpStartDelay)
-                {
-                    //  Create a loop
-                }
-
-                // Start the usb pump
-                string startPump = "Programs/pythonScripts/relayState";
-                runPythonScript(startPump, 4, 0, "1", relay); 
-
-                while (DateTime.Now < purgeFinish)
-                {
-                    //  Loop
-                }
-
-                setlblStatusTextSafely("Analysing chamber atmospheric composition");
-                getGas();
-
-                /*  I'd like that have the getGas pscript run from here as as well but there appears
-                 *  to be a problem with the ADS1x15.py program when we try to do this.
-                 */
-
-                /*
-                // Start the getGas.py program
-                string fileName = "Adafruit_Python_ADS1x15/myGas";
-                string gas = "gas";
-                string samplingTime = txtSamplingTime.Text;
-                runPythonScript(fileName, 5, 1, samplingTime, gas);
-                */
-
-                setlblStatusTextSafely("Sleeping...waiting for next cycle");
-
-                // Stop the usb pump
-                string stopPump = "Programs/pythonScripts/relayState";
-                runPythonScript(stopPump, 4, 1, "1", relay);
-                DateTime pumpStopDelay = (DateTime.Now).AddMilliseconds(1000);
-                while (DateTime.Now < pumpStopDelay)
-                {
-                    //  Create a loop
-                }
-   
-                // De-energise and close the usb pump solenoid valve.
-                string closeSolenoid = "Programs/pythonScripts/relayState";
-                runPythonScript(closeSolenoid, 26, 1, "1", relay);
-
-                //  Now publish the data to io.adafruit.com
-                publish2Adafruit();
-
-                //  Write data to datafile on the internal SD card.
-                write2DataFile();
-                
-                //This is the loop described above that creates the delay similiar to Thread.Sleep().
-                while (DateTime.Now < finishTimeBW3)
-                {
-                    //  Create a loop
-                }
-            }
-
-
-        }  
-
-        private void getGas()
-        {
-            /*  This getGas() method calls a python script that reads electrode values from the South Coast Science
-             *  DFE which has an series of Alphasense electrochemical sensors attached to an AFE.
-             *  
-             *  The script takes one reading per second (1Hz) for a period of time determined by the value of
-             *  txtSamplingTime.Text.  A delay is built into the script to force the 1Hz measurement period.
-             *  
-             *  Once the sampling is completed, the script calculates the average value for the electrode outputs
-             *  and returns that value to this program.
-             *  
-             *  There were some issues with running this program initially.  When the version of python was 
-             *  changed to python3, the error disappeared.
-             *  
-            */
-            string python = @"/usr/bin/python3";
-            string args = string.Format(@"/home/pi/Adafruit_Python_ADS1x15/Gas.py {0} ", txtSamplingTime.Text);
-            try
-            {
-                Process getgas = new Process();
-                ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true,
-                    FileName = python,
-                    Arguments = args
-                };
-
-                getgas.StartInfo = publishProcessStartInfo;
-                getgas.Start();
-                //getgas.WaitForExit();
-
-                StreamReader _myStreamReader = getgas.StandardOutput;
-                string NO_WE = _myStreamReader.ReadLine();
-                string NO_AE = _myStreamReader.ReadLine();
-                string NO2_WE = _myStreamReader.ReadLine();
-                string NO2_AE = _myStreamReader.ReadLine();
-
-                //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-                //  call a Windows Forms control from a thread that didn't create that control.  We can pass a text value from the calling 
-                //  function.
-                lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
-                lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
-                lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
-                lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
-            }
-            catch
-            {
-            }
-        }
 
         /*
-         * 
-         */
-        private void getGasPulsed()
-        {
-
-            /*  Replaced by getGas() to simplify to one gas aquisition function.
-             *  
-             *  This getGas() method calls a python script that reads electrode values from the South Coast Science
-             *  DFE which has an series of Alphasense electrochemical sensors attached to an AFE.
-             *  
-             *  The script takes one reading per second (1Hz) for a period of time determined by the value of
-             *  txtSamplingTime.Text.  A delay is built into the script to force the 1Hz measurement period.
-             *  
-             *  Once the sampling is completed, the script calculates the average value for the electrode outputs
-             *  and returns that value to this program.
-             *  
-             *  There were some issues with running this program initially.  When the version of python was 
-             *  changed to python3, the error disappeared.
-             *  
-            */
-            string python = @"/usr/bin/python3";
-            string args = string.Format(@"/home/pi/Adafruit_Python_ADS1x15/Gas.py {0} ", txtSamplingTime.Text);
-            try
-            {
-                Process getgas = new Process();
-                ProcessStartInfo publishProcessStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = true,
-                    CreateNoWindow = true,
-                    FileName = python,
-                    Arguments = args
-                };
-
-                getgas.StartInfo = publishProcessStartInfo;
-                getgas.Start();
-                //getgas.WaitForExit();
-
-                StreamReader _myStreamReader = getgas.StandardOutput;
-                string NO_WE = _myStreamReader.ReadLine();
-                string NO_AE = _myStreamReader.ReadLine();
-                string NO2_WE = _myStreamReader.ReadLine();
-                string NO2_AE = _myStreamReader.ReadLine();
-
-                //  We use the InvokeRequired method to prevent a  "Cross thread operation not valid".This error occurs when we try to
-                //  call a Windows Forms control from a thread that didn't create that control.  We can pass a text value from the calling 
-                //  function.
-                lblNOWE.Invoke(new MethodInvoker(delegate { lblNOWE.Text = NO_WE; }));
-                lblNOAE.Invoke(new MethodInvoker(delegate { lblNOAE.Text = NO_AE; }));
-                lblNO2WE.Invoke(new MethodInvoker(delegate { lblNO2WE.Text = NO2_WE; }));
-                lblNO2AE.Invoke(new MethodInvoker(delegate { lblNO2AE.Text = NO2_AE; }));
-            }
-            catch 
-            { 
-            }              
-        }
-            
-
-
-
-
-            private void startToolStripMenuItem3_Click(object sender, EventArgs e)
-        {
-            bwGetClimate.RunWorkerAsync();
-        }
-
-       
-
-        private void pulsedSamplingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            bwGetGasPulsed.RunWorkerAsync();
-        }
-
         private void electrodeOffsetMeasurementToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bwCalculateElectrodeOffsets.RunWorkerAsync();
@@ -642,13 +310,7 @@ namespace AtMoS3
                 avgNOAE = Math.Round((sumNOAE / count),5);
                 avgNO2WE = Math.Round((sumNO2WE / count),5);
                 avgNO2AE = Math.Round((sumNO2AE / count),5);
-                /*
-                //  Need to fix this as it will throw a cross thread error.
-                txtNOWEOffset.Text = avgNOWE.ToString("#.#####");
-                txtNOAEOffset.Text = avgNOAE.ToString("#.#####");
-                txtNO2WEOffset.Text = avgNO2WE.ToString("#.#####");
-                txtNO2AEOffset.Text = avgNO2AE.ToString("#.#####");
-                */
+                
 
                 if (txtNOWEOffset.InvokeRequired)
                 {
@@ -675,13 +337,7 @@ namespace AtMoS3
             }
 
         }
-
-        private void continuousSamplingToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /*
-            bwGetGasContinuous.RunWorkerAsync();
-            */
-        }
+                */
 
         private void bwGetGasContinuous_DoWork(object sender, DoWorkEventArgs e)
         {
@@ -707,7 +363,7 @@ namespace AtMoS3
             */
   
         }
-
+        /*
         private void getGasContinuous()
         {
             /*  This getGas() method calls a python script that reads electrode values from the South Coast Science
@@ -722,7 +378,7 @@ namespace AtMoS3
              *  There were some issues with running this program initially.  When the version of python was 
              *  changed to python3, the error disappeared.
              *  
-            */
+            
 
             string python = @"/usr/bin/python3";
             string args = @"/home/pi/Adafruit_Python_ADS1x15/Gas2.py";
@@ -762,7 +418,9 @@ namespace AtMoS3
             }
 
         }
+*/
 
+        /*
         private void publishElectrodeValues(string objNOWE, string NO_WE, string objNOAE, string NO_AE, string objNO2WE, string NO2_WE, string objNO2AE, string NO2_AE)
         {
             /*  This method publishes the electrode values to the form.
@@ -772,7 +430,7 @@ namespace AtMoS3
              * 
              *  We do a test to determine if InvokeRequired is required for the first of the objects to update.  If it is required
              *  then it will be required for all the objects being updated.  This saves multiple if/else conditions.                
-            */
+            
 
             if (lblNOWE.InvokeRequired)
             {
@@ -790,24 +448,22 @@ namespace AtMoS3
             }
                        
         }
+            */
 
+        /*
         private void startBaselineToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bwCalculateElectrodeOffsets.RunWorkerAsync();
         }
-
-        private void stopBaselineToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            
-        }
+        */
+        
 
         private void publish2Adafruit()
         {
             //  Lets publish the climate data to Adafruit just to check and see if the python script works correctly.
 
-            //  Yes...this is working correctly.  All that needs to happen now is to also include the other values of interest 
-            //  such as electrode outputs etc. and move the code to the backgroundworker3() method, after the getGas() method.
+            //  Yes...this is working correctly.  
+
             string python = @"/usr/bin/python3";
             string args3 = string.Format(@"/home/pi/Programs/Python/publish2Cloud/publish2Cloud.py {0} {1} {2} {3} {4} {5} {6}", lblTemperature.Text, lblHumidity.Text, lblPressure.Text, lblNOAE.Text, lblNOWE.Text, lblNO2AE.Text, lblNO2WE.Text);
 
@@ -833,132 +489,6 @@ namespace AtMoS3
         }
 
 
-        private void publishResultsToCloudToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /*
-            bwPublish2Adafruit.RunWorkerAsync();
-            */
-        }
-
-        private void bwPublish2Adafruit_DoWork(object sender, DoWorkEventArgs e)
-        {
-            //  Only publish to Adafruit every 15 seconds to prevent throttling errors on io.adafruit.com
-            publish2Adafruit();
-
-            DateTime nextPublishTime = (DateTime.Now).AddMilliseconds(15000);
-            while (DateTime.Now < nextPublishTime)
-            {
-                //  Create a loop
-            }
-        }
-
-        /*  This block of code has now been replaced by pumpSolenoid()
-        private void openSolenoid()
-        {
-            //  The method calls a python script whose function is to energise the relay connected to the
-            //  calibration hood solenoid valve thereby switching it on.
-            string python = @"/usr/bin/python";
-            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/openSolenoid.py";
-
-            try
-            {
-                Process energiseSolenoid = new Process();
-                ProcessStartInfo energiseSolenoidStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = false,
-                    CreateNoWindow = false,
-                    FileName = python,
-                    Arguments = pythonStartPump
-                };
-
-                energiseSolenoid.StartInfo = energiseSolenoidStartInfo;
-                energiseSolenoid.Start();
-            }
-            catch 
-            { 
-            }            
-        }
-
-        private void closeSolenoid()
-        {
-            //  The method calls a python script whose function is to deenergise the relay connected to the
-            //  calibration hood solenoid valve thereby switching it off.
-            string python = @"/usr/bin/python";
-            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/closeSolenoid.py";            
-
-            try
-            {
-                Process deenergiseSolenoid = new Process();
-                ProcessStartInfo deenergiseSolenoidStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = false,
-                    CreateNoWindow = false,
-                    FileName = python,
-                    Arguments = pythonStartPump
-                };
-
-                deenergiseSolenoid.StartInfo = deenergiseSolenoidStartInfo;
-                deenergiseSolenoid.Start();
-            }
-            catch 
-            { 
-            }       
-        }
-        */
-
-        private void startPump()
-        {
-            //  The method calls a python script whose function is to energise the relay connected to the
-            //  usb pump thereby switching it on.
-            /*
-            string python = @"/usr/bin/python";
-            string pythonStartPump = @"/home/pi/Programs/Python/pumpSwitching/switchON.py";
-            Process _myProcess = new Process();
-            ProcessStartInfo _myProcessStartInfo = new ProcessStartInfo
-            {
-                UseShellExecute = false,
-                RedirectStandardOutput = false,
-                CreateNoWindow = false,
-                FileName = python,
-                Arguments = pythonStartPump
-            };
-
-            _myProcess.StartInfo = _myProcessStartInfo;
-            _myProcess.Start();
-            */
-        }
-
-        private void pumpSolenoid(string fileName)
-        {
-            /*  The method calls one of two possible python script depending on the required action, whose function is to either 
-             *  energise or deenergise the relay connected to the usb air pump solenoid valve thereby switching it on or off.
-            */
-            /*
-            string python = @"/usr/bin/python3";
-            string relayAction = @"/home/pi/Programs/pythonScripts/" + fileName + ".py";
-
-            try
-            {
-                Process solenoidState = new Process();
-                ProcessStartInfo solenoidStateStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = false,
-                    CreateNoWindow = false,
-                    FileName = python,
-                    Arguments = relayAction
-                };
-
-                solenoidState.StartInfo = solenoidStateStartInfo;
-                solenoidState.Start();
-            }
-            catch
-            {
-            }
-            */
-        }
 
         private void runPythonScript(string fileName, int myPin, int gpioState, string samplingTime, string programType)
         {
@@ -1023,57 +553,14 @@ namespace AtMoS3
             //  TO DO - Now change the call for the calibration hood solenoid tom use this function.
         }
 
-        private void solenoidState(string fileName)
-        {
-            
-            /*  The method calls one of two possible python script depending on the required action, whose function is to either 
-             *  energise or deenergise the relay connected to the calibration hood solenoid valve thereby switching it on or off.
-            */
-            /*
-            string python = @"/usr/bin/python3";
-            string pythonStartPump = @"/home/pi/Programs/Python/solenoidOperation/" + fileName + ".py";
-
-            try
-            {
-                Process solenoidState = new Process();
-                ProcessStartInfo solenoidStateStartInfo = new ProcessStartInfo
-                {
-                    UseShellExecute = false,
-                    RedirectStandardOutput = false,
-                    CreateNoWindow = false,
-                    FileName = python,
-                    Arguments = pythonStartPump
-                };
-
-                solenoidState.StartInfo = solenoidStateStartInfo;
-                solenoidState.Start();
-            }
-            catch
-            {
-            }
-            */
-        }
-
-        private void delayLoop(Int32 delay)
-        {
-            /*
-            //  Create a delay in the program using the .AddMilliseconds function.  Obtain the delay from various 
-            //  textboxes.
-            DateTime delayFinishTime = (DateTime.Now).AddMilliseconds(delay * 1000);
-            while (DateTime.Now < delayFinishTime)
-            {
-                //  Create a loop
-            }
-            */
-        }
-
-        private void txtPurgeTime_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void bwPublishContinuous_DoWork(object sender, DoWorkEventArgs e)
         {
+            /*  Add an initial delay here to ensure that data is available on the form to be written to Adafruit.
+             *  Without this delay, the first publish thgrows an error that a list item is out of range in the 
+             *  publish2Cloud.py script.
+             */
+            Thread.Sleep(5000);
+ 
             while (true)
             {
                 DateTime nextUpdateTime = (DateTime.Now).AddMilliseconds(15000);
@@ -1086,91 +573,6 @@ namespace AtMoS3
                 }
 
             }
-        }
-
-        private void continuousToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            /*
-            bwGetClimate.RunWorkerAsync();
-            //bwPublishContinuous.RunWorkerAsync();
-            txtSamplingTime.Text = "1";
-            bwGetGasContinuous.RunWorkerAsync();
-            /*backgroundWorker1.RunWorkerAsync();
-
-
-            while (true)
-            {
-                DateTime nextMeasurement = (DateTime.Now).AddMilliseconds(1000);
-                getGas();
-                write2DataFile();
-
-                //This is the loop described above that creates the delay similiar to Thread.Sleep().
-                while (DateTime.Now < nextMeasurement)
-                {
-                    //  Create a loop
-                }
-            }
-            */
-         
-        }
-
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
-        {
-            bwPublishContinuous.RunWorkerAsync();
-            
-            while (true)
-            {
-                DateTime nextMeasurement = (DateTime.Now).AddMilliseconds(1000);
-                getGasContinuous();
-                write2DataFile();
-               
-                //This is the loop described above that creates the delay similiar to Thread.Sleep().
-                while (DateTime.Now < nextMeasurement)
-                {
-                    //  Create a loop
-                }
-            }
-        }
-
-        private void pulsedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            bwGetClimate.RunWorkerAsync();
-            bwGetGasPulsed.RunWorkerAsync();
-        }
-
-        private void stopToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            bwGetClimate.CancelAsync();
-            bwGetClimate.Dispose();
-        }
-
-        private void newPulsedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //string fileName = "getGas";
-            bwGetGasPulsed.RunWorkerAsync();
-            /*bwPublishContinuous.RunWorkerAsync();
-            string fileName = "Adafruit_Python_ADS1x15/myGas";
-            string programType = "gas";
-            while (true)
-            {
-                //DateTime finishTime = (DateTime.Now).AddMilliseconds(1000);
-                //getGasContinuous();
-
-                runPythonScript(fileName, 5, 1, txtSamplingTime.Text, programType);
-                //publish2Adafruit();
-                write2DataFile();
-
-                //while (DateTime.Now < finishTime)
-                //{
-                    // create a loop
-                //}
-            }
-            */
-        }
-
-        private void txtSleepTime_TextChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void newContinuousToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1189,7 +591,6 @@ namespace AtMoS3
             while (true)
             {
                 DateTime finishTime = (DateTime.Now).AddMilliseconds(1000);
-                //getGasContinuous();
 
                 runPythonScript(fileName, 5, 1, "1", programType);
                 write2DataFile();
@@ -1201,10 +602,83 @@ namespace AtMoS3
             }
         }
 
-        private void stopToolStripMenuItem_Click(object sender, EventArgs e)
+
+        private void bwgasPulsed_DoWork(object sender, DoWorkEventArgs e)
         {
+            // 09/01/2021 1045 - Added this bw to return pulsed gas to stand alone code to fix adafruit update issue.
+
+
+            while (true)
+            {
+                DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
+                DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
+
+                // Energise and open the usb pump solenoid valve.
+                string openSolenoid = "Programs/pythonScripts/relayState";
+                string relay = "relay";
+                runPythonScript(openSolenoid, 26, 0, "1", relay);
+
+                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(1000);
+                setlblStatusTextSafely("Sensor purge cycle started.");
+                while (DateTime.Now < pumpStartDelay)
+                {
+                    //  Create a loop
+                }
+
+                // Start the usb pump
+                string startPump = "Programs/pythonScripts/relayState";
+                runPythonScript(startPump, 4, 0, "1", relay);
+
+                while (DateTime.Now < purgeFinish)
+                {
+                    //  Loop
+                }
+
+                setlblStatusTextSafely("Analysing chamber atmospheric composition");
+
+                // Start the getGas.py program
+                string fileName = "Adafruit_Python_ADS1x15/myGas";
+                string gas = "gas";
+                string samplingTime = txtSamplingTime.Text;
+                runPythonScript(fileName, 5, 1, samplingTime, gas);
+
+                // Stop the usb pump
+                string stopPump = "Programs/pythonScripts/relayState";
+                runPythonScript(stopPump, 4, 1, "1", relay);
+                DateTime pumpStopDelay = (DateTime.Now).AddMilliseconds(1000);
+                while (DateTime.Now < pumpStopDelay)
+                {
+                    //  Create a loop
+                }
+
+                setlblStatusTextSafely("Sleeping...waiting for next cycle");
+
+                // De-energise and close the usb pump solenoid valve.
+                string closeSolenoid = "Programs/pythonScripts/relayState";
+                runPythonScript(closeSolenoid, 26, 1, "1", relay);
+
+                //Thread.Sleep(10000);
+                publish2Adafruit();
+
+                write2DataFile();
+
+                //This is the loop described above that creates the delay similiar to Thread.Sleep().
+                while (DateTime.Now < finishTimeBW3)
+                {
+                    //  Create a loop
+                }
+            }
+
+            
 
         }
+
+        private void pulsedStandaloneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            bwGetClimate.RunWorkerAsync();
+            bwgasPulsed.RunWorkerAsync();
+        }
+
     }
 
     /*

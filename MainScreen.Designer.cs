@@ -36,27 +36,9 @@
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.publishResultsToCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNOGasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.calibrationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startBaselineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopBaselineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aquisitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.continuousSamplingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pulsedSamplingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.electrodeOffsetMeasurementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.climateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.pulsedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newPulsedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newContinuousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pumpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.startToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.stopToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.autoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.electrodeOffsetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pulsedStandaloneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -132,6 +114,7 @@
             this.bwPublishContinuous = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.bwGasCont = new System.ComponentModel.BackgroundWorker();
+            this.bwgasPulsed = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -159,9 +142,7 @@
             this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.experimentToolStripMenuItem,
-            this.calibrationToolStripMenuItem,
             this.aquisitionToolStripMenuItem,
-            this.pumpToolStripMenuItem,
             this.helpToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -201,179 +182,30 @@
             this.addNOGasToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
             this.addNOGasToolStripMenuItem.Text = "Add NO Gas";
             // 
-            // calibrationToolStripMenuItem
-            // 
-            this.calibrationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startBaselineToolStripMenuItem,
-            this.stopBaselineToolStripMenuItem});
-            this.calibrationToolStripMenuItem.Name = "calibrationToolStripMenuItem";
-            this.calibrationToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.calibrationToolStripMenuItem.Text = "Calibration";
-            this.calibrationToolStripMenuItem.Visible = false;
-            // 
-            // startBaselineToolStripMenuItem
-            // 
-            this.startBaselineToolStripMenuItem.Name = "startBaselineToolStripMenuItem";
-            this.startBaselineToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.startBaselineToolStripMenuItem.Text = "Start Baseline Calibration";
-            this.startBaselineToolStripMenuItem.Click += new System.EventHandler(this.startBaselineToolStripMenuItem_Click);
-            // 
-            // stopBaselineToolStripMenuItem
-            // 
-            this.stopBaselineToolStripMenuItem.Name = "stopBaselineToolStripMenuItem";
-            this.stopBaselineToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
-            this.stopBaselineToolStripMenuItem.Text = "Stop Baseline Calibration";
-            this.stopBaselineToolStripMenuItem.Click += new System.EventHandler(this.stopBaselineToolStripMenuItem_Click);
-            // 
             // aquisitionToolStripMenuItem
             // 
             this.aquisitionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem,
-            this.startToolStripMenuItem2,
-            this.stopToolStripMenuItem,
-            this.climateToolStripMenuItem,
-            this.pulsedToolStripMenuItem,
-            this.newPulsedToolStripMenuItem,
-            this.newContinuousToolStripMenuItem});
+            this.newContinuousToolStripMenuItem,
+            this.pulsedStandaloneToolStripMenuItem});
             this.aquisitionToolStripMenuItem.Name = "aquisitionToolStripMenuItem";
             this.aquisitionToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.aquisitionToolStripMenuItem.Text = "Aquisition";
             this.aquisitionToolStripMenuItem.ToolTipText = "This function allows the operator to start or\r\nstop various data aquisition funct" +
     "ions.";
             // 
-            // startToolStripMenuItem
-            // 
-            this.startToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.continuousSamplingToolStripMenuItem,
-            this.pulsedSamplingToolStripMenuItem,
-            this.electrodeOffsetMeasurementToolStripMenuItem});
-            this.startToolStripMenuItem.Enabled = false;
-            this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.startToolStripMenuItem.Text = "Start";
-            this.startToolStripMenuItem.Visible = false;
-            this.startToolStripMenuItem.Click += new System.EventHandler(this.startToolStripMenuItem_Click);
-            // 
-            // continuousSamplingToolStripMenuItem
-            // 
-            this.continuousSamplingToolStripMenuItem.Name = "continuousSamplingToolStripMenuItem";
-            this.continuousSamplingToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.continuousSamplingToolStripMenuItem.Text = "Continuous sampling";
-            this.continuousSamplingToolStripMenuItem.Click += new System.EventHandler(this.continuousSamplingToolStripMenuItem_Click);
-            // 
-            // pulsedSamplingToolStripMenuItem
-            // 
-            this.pulsedSamplingToolStripMenuItem.Name = "pulsedSamplingToolStripMenuItem";
-            this.pulsedSamplingToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.pulsedSamplingToolStripMenuItem.Text = "Pulsed sampling";
-            this.pulsedSamplingToolStripMenuItem.Click += new System.EventHandler(this.pulsedSamplingToolStripMenuItem_Click);
-            // 
-            // electrodeOffsetMeasurementToolStripMenuItem
-            // 
-            this.electrodeOffsetMeasurementToolStripMenuItem.Name = "electrodeOffsetMeasurementToolStripMenuItem";
-            this.electrodeOffsetMeasurementToolStripMenuItem.Size = new System.Drawing.Size(247, 22);
-            this.electrodeOffsetMeasurementToolStripMenuItem.Text = "Electrode Offset measurement";
-            this.electrodeOffsetMeasurementToolStripMenuItem.Click += new System.EventHandler(this.electrodeOffsetMeasurementToolStripMenuItem_Click);
-            // 
-            // startToolStripMenuItem2
-            // 
-            this.startToolStripMenuItem2.Enabled = false;
-            this.startToolStripMenuItem2.Name = "startToolStripMenuItem2";
-            this.startToolStripMenuItem2.Size = new System.Drawing.Size(139, 22);
-            this.startToolStripMenuItem2.Text = "Start";
-            this.startToolStripMenuItem2.Visible = false;
-            // 
-            // stopToolStripMenuItem
-            // 
-            this.stopToolStripMenuItem.Enabled = false;
-            this.stopToolStripMenuItem.Name = "stopToolStripMenuItem";
-            this.stopToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.stopToolStripMenuItem.Text = "Stop";
-            this.stopToolStripMenuItem.Visible = false;
-            this.stopToolStripMenuItem.Click += new System.EventHandler(this.stopToolStripMenuItem_Click);
-            // 
-            // climateToolStripMenuItem
-            // 
-            this.climateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem3,
-            this.stopToolStripMenuItem2});
-            this.climateToolStripMenuItem.Name = "climateToolStripMenuItem";
-            this.climateToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.climateToolStripMenuItem.Text = "Climate";
-            // 
-            // startToolStripMenuItem3
-            // 
-            this.startToolStripMenuItem3.Name = "startToolStripMenuItem3";
-            this.startToolStripMenuItem3.Size = new System.Drawing.Size(102, 22);
-            this.startToolStripMenuItem3.Text = "Start";
-            this.startToolStripMenuItem3.Click += new System.EventHandler(this.startToolStripMenuItem3_Click);
-            // 
-            // stopToolStripMenuItem2
-            // 
-            this.stopToolStripMenuItem2.Name = "stopToolStripMenuItem2";
-            this.stopToolStripMenuItem2.Size = new System.Drawing.Size(102, 22);
-            this.stopToolStripMenuItem2.Text = "Stop";
-            this.stopToolStripMenuItem2.Click += new System.EventHandler(this.stopToolStripMenuItem2_Click);
-            // 
-            // pulsedToolStripMenuItem
-            // 
-            this.pulsedToolStripMenuItem.Name = "pulsedToolStripMenuItem";
-            this.pulsedToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.pulsedToolStripMenuItem.Text = "Pulsed";
-            this.pulsedToolStripMenuItem.Click += new System.EventHandler(this.pulsedToolStripMenuItem_Click);
-            // 
-            // newPulsedToolStripMenuItem
-            // 
-            this.newPulsedToolStripMenuItem.Name = "newPulsedToolStripMenuItem";
-            this.newPulsedToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
-            this.newPulsedToolStripMenuItem.Text = "New Pulsed";
-            this.newPulsedToolStripMenuItem.Click += new System.EventHandler(this.newPulsedToolStripMenuItem_Click);
-            // 
             // newContinuousToolStripMenuItem
             // 
             this.newContinuousToolStripMenuItem.Name = "newContinuousToolStripMenuItem";
-            this.newContinuousToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
+            this.newContinuousToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newContinuousToolStripMenuItem.Text = "Continuous";
             this.newContinuousToolStripMenuItem.Click += new System.EventHandler(this.newContinuousToolStripMenuItem_Click);
             // 
-            // pumpToolStripMenuItem
+            // pulsedStandaloneToolStripMenuItem
             // 
-            this.pumpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startToolStripMenuItem1,
-            this.stopToolStripMenuItem1,
-            this.autoToolStripMenuItem,
-            this.electrodeOffsetsToolStripMenuItem});
-            this.pumpToolStripMenuItem.Name = "pumpToolStripMenuItem";
-            this.pumpToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
-            this.pumpToolStripMenuItem.Text = "Pump";
-            // 
-            // startToolStripMenuItem1
-            // 
-            this.startToolStripMenuItem1.Name = "startToolStripMenuItem1";
-            this.startToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
-            this.startToolStripMenuItem1.Text = "Start";
-            this.startToolStripMenuItem1.Click += new System.EventHandler(this.startToolStripMenuItem1_Click);
-            // 
-            // stopToolStripMenuItem1
-            // 
-            this.stopToolStripMenuItem1.Name = "stopToolStripMenuItem1";
-            this.stopToolStripMenuItem1.Size = new System.Drawing.Size(171, 22);
-            this.stopToolStripMenuItem1.Text = "Stop";
-            this.stopToolStripMenuItem1.Click += new System.EventHandler(this.stopToolStripMenuItem1_Click);
-            // 
-            // autoToolStripMenuItem
-            // 
-            this.autoToolStripMenuItem.Name = "autoToolStripMenuItem";
-            this.autoToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.autoToolStripMenuItem.Text = "Auto";
-            this.autoToolStripMenuItem.Click += new System.EventHandler(this.autoToolStripMenuItem_Click);
-            // 
-            // electrodeOffsetsToolStripMenuItem
-            // 
-            this.electrodeOffsetsToolStripMenuItem.Name = "electrodeOffsetsToolStripMenuItem";
-            this.electrodeOffsetsToolStripMenuItem.Size = new System.Drawing.Size(171, 22);
-            this.electrodeOffsetsToolStripMenuItem.Text = "Electrode Offsets";
-            this.electrodeOffsetsToolStripMenuItem.Click += new System.EventHandler(this.electrodeOffsetsToolStripMenuItem_Click);
+            this.pulsedStandaloneToolStripMenuItem.Name = "pulsedStandaloneToolStripMenuItem";
+            this.pulsedStandaloneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pulsedStandaloneToolStripMenuItem.Text = "Pulsed";
+            this.pulsedStandaloneToolStripMenuItem.Click += new System.EventHandler(this.pulsedStandaloneToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -864,7 +696,6 @@
             this.txtSleepTime.TabIndex = 5;
             this.txtSleepTime.Text = "30";
             this.txtSleepTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtSleepTime.TextChanged += new System.EventHandler(this.txtSleepTime_TextChanged);
             // 
             // txtSamplingTime
             // 
@@ -886,7 +717,6 @@
             this.txtPurgeTime.TabIndex = 3;
             this.txtPurgeTime.Text = "5";
             this.txtPurgeTime.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPurgeTime.TextChanged += new System.EventHandler(this.txtPurgeTime_TextChanged);
             // 
             // label14
             // 
@@ -1007,15 +837,10 @@
             // tmrWrite2File
             // 
             this.tmrWrite2File.Interval = 1000;
-            this.tmrWrite2File.Tick += new System.EventHandler(this.tmrWrite2File_Tick);
             // 
             // bwGetSystemTime
             // 
             this.bwGetSystemTime.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwGetSystemTime_DoWork);
-            // 
-            // bwGetGasPulsed
-            // 
-            this.bwGetGasPulsed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwGetGasPulsed_DoWork);
             // 
             // bwGetClimate
             // 
@@ -1024,19 +849,18 @@
             // bwCalculateElectrodeOffsets
             // 
             this.bwCalculateElectrodeOffsets.WorkerSupportsCancellation = true;
-            this.bwCalculateElectrodeOffsets.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwCalculateElectrodeOffsets_DoWork);
             // 
             // bwPublishContinuous
             // 
             this.bwPublishContinuous.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwPublishContinuous_DoWork);
             // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            // 
             // bwGasCont
             // 
             this.bwGasCont.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwGasCont_DoWork);
+            // 
+            // bwgasPulsed
+            // 
+            this.bwgasPulsed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwgasPulsed_DoWork);
             // 
             // MainScreen
             // 
@@ -1085,8 +909,6 @@
         private System.Windows.Forms.ToolStripMenuItem experimentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aquisitionToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
@@ -1107,10 +929,6 @@
         private System.Windows.Forms.Label lblDataFileLocation;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripMenuItem pumpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem autoToolStripMenuItem;
         private System.Windows.Forms.TextBox txtSleepTime;
         private System.Windows.Forms.TextBox txtSamplingTime;
         private System.Windows.Forms.TextBox txtPurgeTime;
@@ -1143,23 +961,12 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Timer tmrGetClimate;
         private System.Windows.Forms.Timer tmrWrite2File;
-        private System.Windows.Forms.ToolStripMenuItem calibrationToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startBaselineToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem stopBaselineToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bwGetSystemTime;
         private System.ComponentModel.BackgroundWorker bwGetGasPulsed;
         private System.ComponentModel.BackgroundWorker bwGetClimate;
         private System.Windows.Forms.Timer tmrAnalysis;
-        private System.Windows.Forms.ToolStripMenuItem continuousSamplingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pulsedSamplingToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem2;
         private System.Windows.Forms.TextBox txtClimateUpdatedInterval;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ToolStripMenuItem climateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem stopToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem electrodeOffsetMeasurementToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem electrodeOffsetsToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bwCalculateElectrodeOffsets;
         private System.ComponentModel.BackgroundWorker bwGetGasContinuous;
         private System.Windows.Forms.TextBox txtOffsetCalibrationTime;
@@ -1178,10 +985,10 @@
         private System.Windows.Forms.Label label22;
         private System.ComponentModel.BackgroundWorker bwPublishContinuous;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.ToolStripMenuItem pulsedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newPulsedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem newContinuousToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker bwGasCont;
+        private System.ComponentModel.BackgroundWorker bwgasPulsed;
+        private System.Windows.Forms.ToolStripMenuItem pulsedStandaloneToolStripMenuItem;
     }
 }
 

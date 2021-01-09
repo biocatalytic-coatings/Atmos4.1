@@ -7,13 +7,13 @@
     <ProjectGuid>{B4CC6EB9-EAE0-490F-807B-18ACADFBFB6E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Atmos4</RootNamespace>
-    <AssemblyName>Atmos4</AssemblyName>
+    <AssemblyName>Atmos4.1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\AtMoS3A\publish\</PublishUrl>
+    <PublishUrl>C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\AtMoS4.1\Publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -23,8 +23,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
-    <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>4.1.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
