@@ -339,30 +339,6 @@ namespace AtMoS3
         }
                 */
 
-        private void bwGetGasContinuous_DoWork(object sender, DoWorkEventArgs e)
-        {
-            //stopPump();
-            //bwPublishContinuous.RunWorkerAsync();
-            /*
-            while (true)
-            {
-                DateTime finishTimeBW6 = (DateTime.Now).AddMilliseconds(1000);
-                getGasContinuous();
-
-                //publishData();
-                //publish2Adafruit();
-                write2DataFile();
-
-                //This is the loop described above that creates the delay similiar to Thread.Sleep().
-                while (DateTime.Now < finishTimeBW6)
-                {
-                    //  Create a loop
-                }
-
-            }
-            */
-  
-        }
         /*
         private void getGasContinuous()
         {
@@ -684,15 +660,18 @@ namespace AtMoS3
     /*
      * THINGS TO DO.
      * 
+     * Need to make sure that aquisition can't start without a datafile being cfeated.
+     * 
      * Look at combining all the relay operations into one function and pass the filename, pin number and state as variables.
-     * Change "pythonstartpump" to "changeState" in solenoidState().
-     * Look at combining the startPump() and stopPump() functions into one and pass the python script file as a variable.
-     * Look at combining the openSolenoid() and closeSolenoid() functions into one and pass the python script file as a variable --- COMPLETE
+     * Change "pythonstartpump" to "changeState" in solenoidState(). --- COMPLETE
+     * Look at combining the startPump() and stopPump() functions into one and pass the python script file as a variable. --- COMPLETE
+     * Look at combining the openSolenoid() and closeSolenoid() functions into one and pass the python script file as a variable. --- COMPLETE
      * 
      */
 
-    /*  atmos4
+    /*  atmos4.1
      *  
+     *  09/01/2021 1255 - Major code purge completed.  All major functions now run from runPythonScript().
      *  07/01/2021 0000 - Create relayAction function to manage all python script calls.
      *  06/01/2021 2235 - Create single function to open or close the gas hood solenoid valve.
      *  06/01/2021 1819 - Remove all the if statements in the getGasContinuous function as they are not required.
