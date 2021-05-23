@@ -588,37 +588,36 @@ namespace AtMoS3
 
             while (true)
             {
+                DateTime newSample = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
                 //DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
                 //DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
 
-                // Energise and open the usb pump solenoid valve.
+                // Energise the calibration hood solenoid valve.
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 string openSolenoid = "Programs/pythonScripts/relayState";
                 string relay = "relay";
                 runPythonScript(openSolenoid, 26, 0, "1", relay);
 
-                DateTime newSample = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000); ;
-                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
-                
-                while (DateTime.Now < pumpStartDelay)
+                //  Create a delay between the solenoid energising and the usb pump starting.
+                DateTime solenoid2PumpDelay  = (DateTime.Now).AddMilliseconds(1000);
+                while (DateTime.Now < solenoid2PumpDelay)
                 {
                     //  Create a loop
                 }
 
-                // Start the usb pump
+                //  Now we want to start the pump so it purges the calibration hood.
                 string startPump = "Programs/pythonScripts/relayState";
                 runPythonScript(startPump, 4, 0, "1", relay);
 
-                /*
-                DateTime pumpStop = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
-
-                while (DateTime.Now < pumpStop)
+                //  Now create a delay to allow the to allow time for the calibration hood to be purged.
+                DateTime purgeTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
+                
+                while (DateTime.Now < purgeTime)
                 {
-                    //  Loop
+                    //  Create a loop
                 }
 
-                */
-
+                //  Now we can start the chamber analysis
                 setlblStatusTextSafely("Analysing chamber atmospheric composition");
 
                 // Start the getGas.py program
@@ -637,21 +636,17 @@ namespace AtMoS3
                 {
                     //  Create a loop
                 }
-                             
-
+                          
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
 
                 // De-energise and close the usb pump solenoid valve.
                 string closeSolenoid = "Programs/pythonScripts/relayState";
                 runPythonScript(closeSolenoid, 26, 1, "1", relay);
 
-                //Thread.Sleep(10000);
+                //  Publish the data to adafruit.io
                 publish2Adafruit();
-                             
 
-                //DateTime sleepTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
-
-                //This is the loop described above that creates the delay similiar to Thread.Sleep().
+                //  Now go to sleep for the designated time.
                 while (DateTime.Now < newSample)
                 {
                     //  Create a loop

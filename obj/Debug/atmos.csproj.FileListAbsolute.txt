@@ -23,7 +23,6 @@ C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects
 C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\Atmos4.1\Production\Atmos4.1.application
 C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\Atmos4.1\Production\Atmos4.1.exe
 C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\Atmos4.1\Production\Atmos4.1.pdb
-C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\Atmos4.1\obj\Debug\atmos.csprojAssemblyReference.cache
 C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\Atmos4.1\obj\Debug\AtMoS3.About.resources
 C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\Atmos4.1\obj\Debug\AtMoS3.ChangeLog.resources
 C:\Users\steve\OneDrive\PhD Project\Software Applications\Visual Studio Projects\Atmos4.1\obj\Debug\AtMoS3.MainScreen.resources
