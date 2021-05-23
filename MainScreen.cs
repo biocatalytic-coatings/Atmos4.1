@@ -588,16 +588,17 @@ namespace AtMoS3
 
             while (true)
             {
-                DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
-                DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
+                //DateTime finishTimeBW3 = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
+                //DateTime purgeFinish = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000 + 1000);
 
                 // Energise and open the usb pump solenoid valve.
+                setlblStatusTextSafely("Sensor purge cycle started.");
                 string openSolenoid = "Programs/pythonScripts/relayState";
                 string relay = "relay";
                 runPythonScript(openSolenoid, 26, 0, "1", relay);
 
                 DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
-                setlblStatusTextSafely("Sensor purge cycle started.");
+                
                 while (DateTime.Now < pumpStartDelay)
                 {
                     //  Create a loop
@@ -625,6 +626,8 @@ namespace AtMoS3
                 string samplingTime = txtSamplingTime.Text;
                 runPythonScript(fileName, 5, 1, samplingTime, gas);
 
+                write2DataFile();
+
                 // Stop the usb pump
                 string stopPump = "Programs/pythonScripts/relayState";
                 runPythonScript(stopPump, 4, 1, "1", relay);
@@ -633,6 +636,7 @@ namespace AtMoS3
                 {
                     //  Create a loop
                 }
+                             
 
                 setlblStatusTextSafely("Sleeping...waiting for next cycle");
 
@@ -642,8 +646,7 @@ namespace AtMoS3
 
                 //Thread.Sleep(10000);
                 publish2Adafruit();
-
-                write2DataFile();
+                             
 
                 DateTime sleepTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
 
