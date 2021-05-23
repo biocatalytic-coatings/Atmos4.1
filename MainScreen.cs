@@ -597,6 +597,7 @@ namespace AtMoS3
                 string relay = "relay";
                 runPythonScript(openSolenoid, 26, 0, "1", relay);
 
+                DateTime newSample = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000); ;
                 DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
                 
                 while (DateTime.Now < pumpStartDelay)
@@ -648,10 +649,10 @@ namespace AtMoS3
                 publish2Adafruit();
                              
 
-                DateTime sleepTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
+                //DateTime sleepTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
 
                 //This is the loop described above that creates the delay similiar to Thread.Sleep().
-                while (DateTime.Now < sleepTime)
+                while (DateTime.Now < newSample)
                 {
                     //  Create a loop
                 }
