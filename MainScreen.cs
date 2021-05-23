@@ -57,12 +57,12 @@ namespace AtMoS3
             //  of "User" in the app.config file.
             if (version == "Southern Cross University")
             {
-                this.Text = "AtMoS - SCU";
+                this.Text = "Atmos4.1 - SCU";
                 tabControl1.TabPages.Remove(Sample);
             }
             else
             {
-                this.Text = "AtMoS - Illawarra Coatings";
+                this.Text = "Atmos4.1 - Illawarra Coatings";
                 toolStripStatusLabel1.Text = "AtMoS - Licensed to Illawarra Coatings.";
             }
 
@@ -143,6 +143,7 @@ namespace AtMoS3
                 //  Once the datafile has been created we make a number of menu items visible.  This prevents a user from
                 //  trying to start the program when the datafile has not been created.
                 aquisitionToolStripMenuItem.Visible = true;
+                addNOGasToolStripMenuItem.Visible = true;
 
             }
         }
@@ -553,6 +554,7 @@ namespace AtMoS3
         private void newContinuousToolStripMenuItem_Click(object sender, EventArgs e)
         {
             bwGetClimate.RunWorkerAsync();
+
             bwGasCont.RunWorkerAsync();
         }
 
@@ -560,6 +562,7 @@ namespace AtMoS3
 
         private void bwGasCont_DoWork(object sender, DoWorkEventArgs e)
         {
+            setlblStatusTextSafely("Running continuous chamber atmospheric analysis.");
             bwPublishContinuous.RunWorkerAsync();
             string fileName = "Adafruit_Python_ADS1x15/myGas";
             string programType = "gas";
@@ -593,7 +596,7 @@ namespace AtMoS3
                 string relay = "relay";
                 runPythonScript(openSolenoid, 26, 0, "1", relay);
 
-                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(1000);
+                DateTime pumpStartDelay = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
                 setlblStatusTextSafely("Sensor purge cycle started.");
                 while (DateTime.Now < pumpStartDelay)
                 {
@@ -604,10 +607,15 @@ namespace AtMoS3
                 string startPump = "Programs/pythonScripts/relayState";
                 runPythonScript(startPump, 4, 0, "1", relay);
 
-                while (DateTime.Now < purgeFinish)
+                /*
+                DateTime pumpStop = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
+
+                while (DateTime.Now < pumpStop)
                 {
                     //  Loop
                 }
+
+                */
 
                 setlblStatusTextSafely("Analysing chamber atmospheric composition");
 
@@ -637,8 +645,10 @@ namespace AtMoS3
 
                 write2DataFile();
 
+                DateTime sleepTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSleepTime.Text) * 1000);
+
                 //This is the loop described above that creates the delay similiar to Thread.Sleep().
-                while (DateTime.Now < finishTimeBW3)
+                while (DateTime.Now < sleepTime)
                 {
                     //  Create a loop
                 }

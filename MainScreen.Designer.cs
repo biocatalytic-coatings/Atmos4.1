@@ -34,7 +34,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.experimentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.publishResultsToCloudToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNOGasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aquisitionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newContinuousToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,6 +114,12 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.bwGasCont = new System.ComponentModel.BackgroundWorker();
             this.bwgasPulsed = new System.ComponentModel.BackgroundWorker();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -125,6 +130,7 @@
             this.Sample.SuspendLayout();
             this.GasAddition.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -155,7 +161,6 @@
             // 
             this.experimentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
-            this.publishResultsToCloudToolStripMenuItem,
             this.addNOGasToolStripMenuItem});
             this.experimentToolStripMenuItem.Name = "experimentToolStripMenuItem";
             this.experimentToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
@@ -164,23 +169,17 @@
             // newToolStripMenuItem
             // 
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.newToolStripMenuItem.Text = "New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
-            // 
-            // publishResultsToCloudToolStripMenuItem
-            // 
-            this.publishResultsToCloudToolStripMenuItem.Enabled = false;
-            this.publishResultsToCloudToolStripMenuItem.Name = "publishResultsToCloudToolStripMenuItem";
-            this.publishResultsToCloudToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
-            this.publishResultsToCloudToolStripMenuItem.Text = "Publish results to cloud";
             // 
             // addNOGasToolStripMenuItem
             // 
             this.addNOGasToolStripMenuItem.Enabled = false;
             this.addNOGasToolStripMenuItem.Name = "addNOGasToolStripMenuItem";
-            this.addNOGasToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.addNOGasToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.addNOGasToolStripMenuItem.Text = "Add NO Gas";
+            this.addNOGasToolStripMenuItem.Visible = false;
             // 
             // aquisitionToolStripMenuItem
             // 
@@ -192,18 +191,19 @@
             this.aquisitionToolStripMenuItem.Text = "Aquisition";
             this.aquisitionToolStripMenuItem.ToolTipText = "This function allows the operator to start or\r\nstop various data aquisition funct" +
     "ions.";
+            this.aquisitionToolStripMenuItem.Visible = false;
             // 
             // newContinuousToolStripMenuItem
             // 
             this.newContinuousToolStripMenuItem.Name = "newContinuousToolStripMenuItem";
-            this.newContinuousToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newContinuousToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.newContinuousToolStripMenuItem.Text = "Continuous";
             this.newContinuousToolStripMenuItem.Click += new System.EventHandler(this.newContinuousToolStripMenuItem_Click);
             // 
             // pulsedStandaloneToolStripMenuItem
             // 
             this.pulsedStandaloneToolStripMenuItem.Name = "pulsedStandaloneToolStripMenuItem";
-            this.pulsedStandaloneToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pulsedStandaloneToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.pulsedStandaloneToolStripMenuItem.Text = "Pulsed";
             this.pulsedStandaloneToolStripMenuItem.Click += new System.EventHandler(this.pulsedStandaloneToolStripMenuItem_Click);
             // 
@@ -339,6 +339,7 @@
             this.tabControl1.Controls.Add(this.Volts);
             this.tabControl1.Controls.Add(this.Sample);
             this.tabControl1.Controls.Add(this.GasAddition);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(7, 19);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -862,6 +863,65 @@
             // 
             this.bwgasPulsed.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bwgasPulsed_DoWork);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.label27);
+            this.tabPage1.Controls.Add(this.label26);
+            this.tabPage1.Controls.Add(this.label25);
+            this.tabPage1.Controls.Add(this.label24);
+            this.tabPage1.Controls.Add(this.label23);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(407, 167);
+            this.tabPage1.TabIndex = 5;
+            this.tabPage1.Text = "BME280 Constants";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(24, 59);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(78, 13);
+            this.label23.TabIndex = 0;
+            this.label23.Text = "Temperature";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(24, 92);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(55, 13);
+            this.label24.TabIndex = 1;
+            this.label24.Text = "Humidity";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(24, 124);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(129, 13);
+            this.label25.TabIndex = 2;
+            this.label25.Text = "Atmospheric Pressure";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(206, 27);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(55, 13);
+            this.label26.TabIndex = 3;
+            this.label26.Text = "Gradient";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(303, 26);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(58, 13);
+            this.label27.TabIndex = 4;
+            this.label27.Text = "Intercept";
+            // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -897,6 +957,8 @@
             this.GasAddition.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -971,7 +1033,6 @@
         private System.ComponentModel.BackgroundWorker bwGetGasContinuous;
         private System.Windows.Forms.TextBox txtOffsetCalibrationTime;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.ToolStripMenuItem publishResultsToCloudToolStripMenuItem;
         private System.Windows.Forms.TabPage GasAddition;
         private System.Windows.Forms.TextBox txtElectrodeStabilisationTime;
         private System.Windows.Forms.TextBox txtGasAdditionTime;
@@ -989,6 +1050,12 @@
         private System.ComponentModel.BackgroundWorker bwGasCont;
         private System.ComponentModel.BackgroundWorker bwgasPulsed;
         private System.Windows.Forms.ToolStripMenuItem pulsedStandaloneToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
     }
 }
 
