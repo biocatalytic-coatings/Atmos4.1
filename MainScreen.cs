@@ -618,6 +618,7 @@ namespace AtMoS3
                     //  Create a loop
                 }
 
+                DateTime pumpStopTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtSamplingTime.Text) * 1000);
                 //  Now we can start the chamber analysis
                 setlblStatusTextSafely("Analysing chamber atmospheric composition");
 
@@ -626,6 +627,11 @@ namespace AtMoS3
                 string gas = "gas";
                 string samplingTime = txtSamplingTime.Text;
                 runPythonScript(fileName, 5, 1, samplingTime, gas);
+
+                while (DateTime.Now < pumpStopTime)
+                {
+                    //  Create a loop
+                }
 
                 write2DataFile();
 
