@@ -610,7 +610,7 @@ namespace AtMoS3
                 string startPump = "Programs/pythonScripts/relayState";
                 runPythonScript(startPump, 4, 0, "1", relay);
 
-                //  Now create a delay to allow the to allow time for the calibration hood to be purged.
+                //  Now create a delay to allow time for the calibration hood to be purged.
                 DateTime purgeTime = (DateTime.Now).AddMilliseconds(Convert.ToInt32(txtPurgeTime.Text) * 1000);
                 
                 while (DateTime.Now < purgeTime)
@@ -633,7 +633,7 @@ namespace AtMoS3
                     //  Create a loop
                 }
 
-                write2DataFile();
+                
 
                 // Stop the usb pump
                 string stopPump = "Programs/pythonScripts/relayState";
@@ -649,6 +649,9 @@ namespace AtMoS3
                 // De-energise and close the usb pump solenoid valve.
                 string closeSolenoid = "Programs/pythonScripts/relayState";
                 runPythonScript(closeSolenoid, 26, 1, "1", relay);
+
+                //  Write the results to the datafile.
+                write2DataFile();
 
                 //  Publish the data to adafruit.io
                 publish2Adafruit();
