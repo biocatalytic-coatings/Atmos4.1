@@ -228,7 +228,8 @@ namespace AtMoS3
                 int delayTime = Convert.ToInt32(txtClimateUpdatedInterval.Text) * 1000;
                 DateTime finishTime = (DateTime.Now).AddMilliseconds(delayTime);
 
-                string myProgram = "Adafruit_BME280_Library/examples/mybme280";
+                //string myProgram = "Adafruit_BME280_Library/examples/mybme280";
+                string myProgram = "Programs/pythonScripts/mybme280";
                 string programType = "climate";
                 runPythonScript(myProgram, 4, 0, "1", programType);
 
